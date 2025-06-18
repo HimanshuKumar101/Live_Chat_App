@@ -1,0 +1,64 @@
+
+
+<div class="login-page">
+  <p-card class="login-card">
+    <div class="logo-wrapper">
+      <img
+        src="assets/logo.png"
+        alt="Logo"
+        class="logo"
+      />
+    </div>
+
+    <form #loginForm="ngForm" (ngSubmit)="login()" novalidate>
+      <div class="p-field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          pInputText
+          [(ngModel)]="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+          #emailInput="ngModel"
+        />
+        <div *ngIf="emailInput.invalid && emailInput.touched" class="error">
+          Email is required
+        </div>
+      </div>
+
+      <div class="p-field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          pInputText
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Enter your Password"
+          required
+          #passwordInput="ngModel"
+        />
+        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error">
+          Password is required
+        </div>
+      </div>
+
+      <button
+        pButton
+        type="submit"
+        label="Login"
+        class="p-button-primary"
+        [disabled]="!loginForm.valid"
+      ></button>
+    </form>
+
+    <div class="register-text">
+      <p>
+        Don't have an account?
+        <a routerLink="/register">Register here</a>
+      </p>
+    </div>
+  </p-card>
+</div>

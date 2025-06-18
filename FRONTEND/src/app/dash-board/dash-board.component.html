@@ -1,0 +1,74 @@
+<div class="main">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="profile">
+        <p-avatar
+          image="assets/profile.jpg"
+          shape="circle"
+          size="large"
+          class="mr-2"
+        ></p-avatar>
+        <div class="user-info">
+          <span class="userName">Himanshu Kumar</span>
+          <i class="pi pi-ellipsis-v options-icon"></i>
+        </div>
+      </div>
+
+      <div class="search-bar p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Search..." />
+      </div>
+
+      <div class="user-list">
+        <h4>Chats</h4>
+        <div
+          *ngFor="let user of usersWithMessages"
+          class="chat-user"
+          (click)="selectUser(user)"
+        >
+          <p-avatar
+            [image]="user.image"
+            shape="circle"
+            size="large"
+            class="chat-user-img"
+          ></p-avatar>
+          <div class="chat-user-info">
+            <span class="chat-user-name">{{ user.name }}</span>
+            <span class="last-message">{{ user.lastMessage }}</span>
+            <span class="last-time">{{ user.lastTime }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Area -->
+    <div class="chatDashboard">
+      <!-- Chat Header -->
+      <div class="chat-header">
+        <p-avatar
+          [image]="selectedUser.image"
+          shape="circle"
+          size="large"
+          class="chat-header-img"
+        ></p-avatar>
+        <span class="chat-header-name">{{ selectedUser.name }}</span>
+      </div>
+
+      <!-- Messages -->
+      <div class="chat-area">
+        <div
+          *ngFor="let msg of chatWithSelectedUser"
+          [ngClass]="{
+            message: true,
+            left: msg.user === selectedUser.name,
+            right: msg.user === currentUser
+          }"
+        >
+          <span class="text">{{ msg.text }}</span>
+          <span class="time">{{ msg.time }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
