@@ -10,7 +10,7 @@ const { Auth } = require("../middleware/auth.middleware");
 const { signupValidation, loginValidation } = require("../validations/auth.validation");
 
 // Routes with validation
-router.get("/login", celebrate(loginValidation), login);
+router.post("/login", celebrate(loginValidation), login);
 router.post("/signup", celebrate(signupValidation), signup);
 router.post("/logout", Auth, logout);
 

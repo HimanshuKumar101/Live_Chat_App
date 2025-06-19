@@ -1,4 +1,3 @@
-
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -7,34 +6,48 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common'; 
-
+import { CommonModule } from '@angular/common';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-     CommonModule, // 👈 ADD THIS
+    CommonModule,
     FormsModule,
     CardModule,
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    RouterModule
+    RouterModule,
   ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   email = '';
   password = '';
-  router = inject(Router);
+
+  private router = inject(Router);
+  private userService = inject(UserService); 
 
   login() {
     if (this.email && this.password) {
-      console.log('Email:', this.email);
-      console.log('Password:', this.password);
-      this.router.navigate(['/chatDashboard']);
+      const credentials = {
+        email: this.email,
+        password: this.password,
+      };
+
+      this.userService.login(credentials).subscribe({
+        next: (res) => {
+          console.log('Login successful:', res);
+          this.router.navigate(['/chatDashboard']);
+        },
+        error: (err) => {
+          console.error('Login failed:', err);
+          alert('Login failed. Please check your credentials.');
+        },
+      });
     }
   }
 }
