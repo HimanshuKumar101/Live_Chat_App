@@ -25,23 +25,25 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  email = '';
+  emaill = '';
   password = '';
 
   private router = inject(Router);
-  private userService = inject(UserService); 
+  private userService = inject(UserService);
 
   login() {
-    if (this.email && this.password) {
+    if (this.emaill && this.password) {
       const credentials = {
-        email: this.email,
+        email: this.emaill,
         password: this.password,
       };
 
       this.userService.login(credentials).subscribe({
         next: (res) => {
           console.log('Login successful:', res);
-          this.router.navigate(['/chatDashboard']);
+          localStorage.setItem('token', res.token);
+          this.userService.setLoggedIn(true);
+          this.router.navigate(['/main']);
         },
         error: (err) => {
           console.error('Login failed:', err);

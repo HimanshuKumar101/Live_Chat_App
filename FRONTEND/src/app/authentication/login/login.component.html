@@ -1,13 +1,7 @@
-
-
 <div class="login-page">
   <p-card class="login-card">
     <div class="logo-wrapper">
-      <img
-        src="assets/logo.png"
-        alt="Logo"
-        class="logo"
-      />
+      <img src="assets/logo.png" alt="Logo" class="logo" />
     </div>
 
     <form #loginForm="ngForm" (ngSubmit)="login()" novalidate>
@@ -17,7 +11,7 @@
           id="email"
           type="email"
           pInputText
-          [(ngModel)]="email"
+          [(ngModel)]="emaill"
           name="email"
           placeholder="Enter your email"
           required
@@ -40,7 +34,10 @@
           required
           #passwordInput="ngModel"
         />
-        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error">
+        <div
+          *ngIf="passwordInput.invalid && passwordInput.touched"
+          class="error"
+        >
           Password is required
         </div>
       </div>
